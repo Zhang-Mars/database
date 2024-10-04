@@ -1,0 +1,16 @@
+import mysql.connector
+import pandas as pd
+db_config = {
+    'host': 'u3r5w4ayhxzdrw87.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',         # 資料庫伺服器地址 (可以是 IP 或域名)
+    'user': 'dhv81sqnky35oozt',     # 資料庫使用者名稱
+    'password': 'rrdv8ehsrp8pdzqn', # 資料庫密碼
+    'database': 'xltc236odfo1enc9',  # 要使用的資料庫名稱
+}
+connection = mysql.connector.connect(**db_config)
+if connection.is_connected():
+    print("成功連接到 MariaDB 資料庫")
+cursor=connection.cursor()
+cursor.execute('SELECT * FROM movies_html ORDER BY id DESC LIMIT 1')            
+result=cursor.fetchall()
+res=result[0][1]
+final_data=pd.read_html(res)[0]
