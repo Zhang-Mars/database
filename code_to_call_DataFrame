@@ -1,10 +1,11 @@
 import mysql.connector
 import pandas as pd
 db_config = {
-    'host': 'u3r5w4ayhxzdrw87.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',         # 資料庫伺服器地址 (可以是 IP 或域名)
-    'user': 'dhv81sqnky35oozt',     # 資料庫使用者名稱
-    'password': 'rrdv8ehsrp8pdzqn', # 資料庫密碼
-    'database': 'xltc236odfo1enc9',  # 要使用的資料庫名稱
+    'host': 'u3r5w4ayhxzdrw87.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',       
+    'user': 'dhv81sqnky35oozt',     
+    'password': 'rrdv8ehsrp8pdzqn', 
+    'database': 'xltc236odfo1enc9',
+    'charset': 'utf8mb4'
 }
 connection = mysql.connector.connect(**db_config)
 if connection.is_connected():
