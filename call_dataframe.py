@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Oct  9 00:29:05 2024
-
-@author: ASUS
-"""
-
 def unify_date(date):
     import datetime
     from datetime import datetime
@@ -137,8 +130,9 @@ def call_dataframe():
     result=cursor.fetchall()
     res=result[0][1]
     vieshow_data=pd.read_html(res)[0]
-    vieshow_data['日期']=vieshow_data['日期'].apply(unify_date)
+    # vieshow_data['日期']=vieshow_data['日期'].apply(unify_date)
     final_data=pd.concat([vieshow_data,final_data])
+    final_data['日期']=final_data['日期'].apply(unify_date)
     final_data['日期'] = pd.to_datetime(final_data['日期'])
     cinema_to_be_fill=final_data.groupby('電影院名稱').count().index
     columns_to_be_filled=['導演','演員','類型','宣傳照']
@@ -148,5 +142,6 @@ def call_dataframe():
         ch_names=to_fill.groupby('中文片名').count().index
         for ch_name in ch_names:
             for col in columns_to_be_filled:
-                final_data[col][(final_data[col].isna()) & (final_data['中文片名'].str.contains(ch_name,case=False))]=final_data[col][(final_data[col].isna()) & (final_data['中文片名'].str.contains(ch_name,case=False))].fillna(value=to_fill[[col,'中文片名']][to_fill['中文片名']==ch_name].iloc[0][col])  
+                final_data[col][(final_data[col].isna()) & (final_data['中文片名'].str.contains(ch_name,case=False))]=final_data[col][(final_data[col].isna()) & (final_data['中文片名'].str.contains(ch_name,case=False))].fillna(value=to_fill[[col,'中文片名']][to_fill['中文片名']==ch_name].iloc[0][col])
     return final_data
+# che=call_dataframe()
